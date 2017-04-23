@@ -9,13 +9,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Scanner;
+//java.sql.Date.valueOf(String date)
 
 public class SIAK {
     String confTimeZone = " "; //serverTimezone=Asia/Jakarta
     boolean mulai;
-    String nim;
+    int nim;
     String nama;
-    Date tgllahir;
+    String tgllahir;
     int kode_mk;
     String nm_mk;
     int sks;
@@ -24,7 +26,7 @@ public class SIAK {
         this.mulai = mulai;
     }
 
-    public void setNim(String nim) {
+    public void setNim(int nim) {
         this.nim = nim;
     }
 
@@ -32,7 +34,7 @@ public class SIAK {
         this.nama = nama;
     }
 
-    public void setTgllahir(Date tgllahir) {
+    public void setTgllahir(String tgllahir) {
         this.tgllahir = tgllahir;
     }
     
@@ -52,7 +54,7 @@ public class SIAK {
         return mulai;
     }
 
-    public String getNim() {
+    public int getNim() {
         return nim;
     }
 
@@ -60,7 +62,7 @@ public class SIAK {
         return nama;
     }
 
-    public Date getTgllahir() {
+    public String getTgllahir() {
         return tgllahir;
     }
 
@@ -186,15 +188,24 @@ public class SIAK {
         }
     }
    
-   public void InputDataMahasiswa(){
+   public void InputDataMahasiswa() {
+        Scanner in = new Scanner(System.in);
+        
         String url1 = "jdbc:mysql://localhost:3306/SIAK?" + confTimeZone;
         String user = "root";
         String password = "";
         Connection connection;
         
+        System.out.print("Input Nim\t: ");
+        nim = in.nextInt();
+        System.out.print("Input Nama\t: ");
+        nama = in.next();
+        System.out.print("Input Tgl Lahir\t:");
+        tgllahir = in.next();
+        
         try {
             connection = DriverManager.getConnection(url1, user, password);
-            String sql = "INSERT INTO t_mahasiswa (nim, nama, tgllahir) VALUES('141540908','SUSAN','1980-08-21')";
+            String sql = "INSERT INTO t_mahasiswa VALUES ('"+nim+"', '"+nama+"', '"+tgllahir+"')";
             Statement statement = connection.createStatement();
             int rs = statement.executeUpdate(sql);
             

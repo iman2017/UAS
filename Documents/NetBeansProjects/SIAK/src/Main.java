@@ -1,4 +1,5 @@
 
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -8,10 +9,11 @@ import java.util.Scanner;
 
 public class Main {
     private static int pilih;
+    
     public static void main (String[] args) {
         SIAK k1 = new SIAK();
+        Scanner in = new Scanner(System.in);
         
-       Scanner in = new Scanner(System.in);
         while (!k1.isMulai()) {
             System.out.println("SISTEM INFORMASI SIAK");
             System.out.println("1. Menampilkan Daftar Mahasiswa");
@@ -29,9 +31,6 @@ public class Main {
                     k1.SelectDataMahasiswa();
                     break;
                 case 2 :
-                    System.out.println("Input Nim\t:");
-                    System.out.println("Input Nama \t:");
-                    System.out.println("Input Tgl Lahir\t:");
                     k1.InputDataMahasiswa();
                     break;
                 case 3 :
