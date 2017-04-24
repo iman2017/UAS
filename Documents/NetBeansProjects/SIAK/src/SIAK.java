@@ -98,10 +98,22 @@ public class SIAK {
         }
     }
     
+    public void Mahasiswa() {
+        
+    }
+    
+    public void MataKuliah() {
+        
+    }
+    
+    public void Nilai() {
+        
+    }
+    
     /**
      * @cara menampilkan isi dari tabel
      */
-    public void SelectDataMahasiswa(){
+    public void SelectDaftarMahasiswa(){
         String url1 = "jdbc:mysql://localhost:3306/SIAK?" + confTimeZone;
         String user = "root";
         String password = "";
@@ -130,7 +142,7 @@ public class SIAK {
         }
     }
     
-   public void SelectData(){
+   public void SelectDaftarMatKul(){
         String url1 = "jdbc:mysql://localhost:3306/SIAK?" + confTimeZone;
         String user = "root";
         String password = "";
@@ -141,14 +153,14 @@ public class SIAK {
             String sql = "SELECT * FROM matakuliah";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-            System.out.print("Kode Mata Kuliah");
+            System.out.print("Kode ");
             System.out.print("\tMata Kuliah");
             System.out.println("\t\tSKS");
             System.out.println("===================================================");
             while (rs.next()){
                 System.out.print(rs.getInt("kode_mk"));
                 System.out.print("\t" + rs.getString("nm_mk"));
-                System.out.println("\t\t" + rs.getInt("sks"));
+                System.out.println("\t" + rs.getInt("sks"));
             }
             System.out.println();
             connection.close();
@@ -159,7 +171,7 @@ public class SIAK {
         }
     }
    
-   public void SelectDataNilai(){
+   public void SelectDaftarNilai(){
         String url1 = "jdbc:mysql://localhost:3306/SIAK?" + confTimeZone;
         String user = "root";
         String password = "";
@@ -200,7 +212,7 @@ public class SIAK {
         nim = in.nextInt();
         System.out.print("Input Nama\t: ");
         nama = in.next();
-        System.out.print("Input Tgl Lahir\t:");
+        System.out.print("Input Tgl Lahir\t: ");
         tgllahir = in.next();
         
         try {
@@ -216,4 +228,89 @@ public class SIAK {
             e.printStackTrace();
         }
     }
+   
+   public void HapusDataMahasiswa() {
+        Scanner in = new Scanner(System.in);
+        int nim;
+        
+        String url1 = "jdbc:mysql://localhost:3306/SIAK?" + confTimeZone;
+        String user = "root";
+        String password = "";
+        Connection connection;
+        
+        System.out.print("Input Nim\t: ");
+        nim = in.nextInt();
+        
+        try {
+            connection = DriverManager.getConnection(url1, user, password);
+            String sql = "DELETE FROM t_mahasiswa WHERE  nim LIKE '"+nim+"%'";
+            Statement statement = connection.createStatement();
+            int rs = statement.executeUpdate(sql);
+            
+            connection.close();
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+   
+   public void InputDataMatKul() {
+        Scanner in = new Scanner(System.in);
+        String kode_mk;
+        String nm_mk;
+        int sks;
+        
+        String url1 = "jdbc:mysql://localhost:3306/SIAK?" + confTimeZone;
+        String user = "root";
+        String password = "";
+        Connection connection;
+        
+        System.out.print("Input Kode MatKul\t: ");
+        kode_mk = in.next();
+        System.out.print("Input Nama MatKul\t: ");
+        nm_mk = in.next();
+        System.out.print("S K S\t\t: ");
+        sks = in.nextInt();
+        
+        try {
+            connection = DriverManager.getConnection(url1, user, password);
+            String sql = "INSERT INTO matakuliah VALUES ('"+kode_mk+"', '"+nm_mk+"', '"+sks+"')";
+            Statement statement = connection.createStatement();
+            int rs = statement.executeUpdate(sql);
+            
+            connection.close();
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+   
+   public void HapusDataMatkul() {
+        Scanner in = new Scanner(System.in);
+        int kode;
+        
+        String url1 = "jdbc:mysql://localhost:3306/SIAK?" + confTimeZone;
+        String user = "root";
+        String password = "";
+        Connection connection;
+        
+        System.out.print("Input Kode Mata Kuliah : ");
+        kode = in.nextInt();
+        
+        try {
+            connection = DriverManager.getConnection(url1, user, password);
+            String sql = "DELETE FROM matakuliah WHERE  kode_mk LIKE '"+kode+"%'";
+            Statement statement = connection.createStatement();
+            int rs = statement.executeUpdate(sql);
+            
+            connection.close();
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+   
 }
